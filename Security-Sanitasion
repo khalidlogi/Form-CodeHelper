@@ -1,0 +1,16 @@
+// use sanitize_email() to try to fix any invalid email 
+$user_email = sanitize_email ( $user_email ); 
+$valid_email = is_email ( $user_email ); 
+if ( ! $valid_email ) echo 'invalid email<br />' ;
+ else 
+echo 'valid email: ' . $user_email ;
+
+Sanitize meta box 
+$v = $_post[] 
+$v = stripslashes(strip_tags($v)) 
+
+//test if empty
+    $name =  isset($_POST['myname']) ? trim($_POST['myname']) : 0;
+    if( empty( $name ) ) $error = 'Please insert a user name<br>';
+    
+ 
