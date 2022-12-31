@@ -7,3 +7,12 @@ function test_input($data)
     $data = htmlspecialchars($data);
     return $data;
 }
+
+//phone number///////////////////////////////////////////////////////////////
+#phone::before {
+  content: "+212";
+  color: #999;
+}
+document.getElementById('phone').addEventListener('focus', function(event) {
+  event.target.value = '+212';
+});
