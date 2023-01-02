@@ -1,0 +1,36 @@
+ //https://codepen.io/martinkrulltott/pen/waRXgw
+ 
+ <div class="form-row"">
+    <div class="form-group col-xs-12">
+      <span>Heure Entre x et Y: </span>
+      <input name="collapseGroup" type="radio" data-toggle="collapse" data-target="#collapseOne"/> 
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+
+            <div class="form-row">
+
+            <div class="form-group col-sm-3">
+    <label for="chargement">Heure</label>
+      <input type="time" id="chargement" name="h1" class="form-control">
+    </div>
+
+    <div class="form-group col-sm-3">
+    <label for="chargement">et Entre</label>
+      <input type="time" id="chargement" disabled name="h2" class="form-control">
+    </div>
+
+</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
