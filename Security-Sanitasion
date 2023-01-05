@@ -13,4 +13,26 @@ $v = stripslashes(strip_tags($v))
     $name =  isset($_POST['myname']) ? trim($_POST['myname']) : 0;
     if( empty( $name ) ) $error = 'Please insert a user name<br>';
     
+    
+    
+    /////////////////////////////////////////////////////////////
+    // 3.2 Clean_text
+function clean_text($clean) {
+    $trimmed = trim($clean);
+    $stripped = stripslashes($clean);
+    $special = htmlspecialchars($clean);
+    return $clean;
+}
+    
+// 3.3 Submission form
+if(isset($_POST['submit'])) {
+    $success = true;
+
+    if(empty($_POST['prenom']) OR empty($_POST['nom']) OR empty($_POST['email'])) {
+        $error = '<p>Veuillez réessayer</p>';
+    } else {
+        $fname = clean_text($_POST['prenom']);
+        $lname = clean_text($_POST['nom']);
+        $email = clean_text($_POST['email']);
+        }
  
