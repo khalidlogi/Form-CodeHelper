@@ -1,3 +1,6 @@
+
+
+
 // use sanitize_email() to try to fix any invalid email 
 $user_email = sanitize_email ( $user_email ); 
 $valid_email = is_email ( $user_email ); 
