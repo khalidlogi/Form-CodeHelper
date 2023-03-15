@@ -20,9 +20,11 @@ $combined_array = array_merge($array1, $array2);
 wp_send_json($combined_array);   
 
 ### Iterate through the JSON object using a for...in loop
+```
 for (var key in jsonObject) {
     // Access the value of the current property using the key
     var value = jsonObject[key];
     // Do something with the key and value
     console.log(key + ": " + value);
 }
+```
