@@ -1,122 +1,70 @@
+## Send email Class
+
+
 ```php
+     // Check if all required fields exist and are not empty
+    if(empty($data['name']) && empty($data['email']) && empty($data['phone'])) {
+        $data['success'] = true; 
+        $data['message'] = 'Thanks ...';
+        //wp_send_json($data);
+        $this->send_confirmation();
+    }
+    else {
+        $data['success'] = false;
+        $data['message'] = 'Error ...';
+        wp_send_json($data);
+    }
 
-$mailbody = "Name: " . $cname . "\n\n"; $mailbody .= "Email: $email\n\n"; $mailbody .= "Phone: $phone\n\n"; $mailbody .= "Message:\n" . $message;
 
-// send email to us wp_mail( $mailto, $mailsubj, $mailbody, $mailhead );
+ public function send_confirmation(){
+     //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->addAddress('khalidlogi@gmail.com', 'Joe User');     //Add a recipient
+    $mail->setFrom($_POST['email'], 'This emaail from');
+    $mail->send(); /*
+try {
+    //Server settings
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'user@example.com';                     //SMTP username
+    $mail->Password   = 'secret';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-// set message for this page and clear vars $msg = "Your message has been sent.";
+    //Recipients
+    $mail->setFrom($_POST['email'], 'Mailer');
+    $mail->addAddress('khalidlogi2@gmail.com', 'Joe User');     //Add a recipient
+    $mail->addAddress('ellen@example.com');               //Name is optional
+    $mail->addReplyTo('info@example.com', 'Information');
+    $mail->addCC('cc@example.com');
+    $mail->addBCC('bcc@example.com');
 
-$email = ""; $cname = ""; $phone = ""; $message = "";
+    //Attachments
+    $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+*/
+    }
+```    
+//https://github.com/MateusNobreSilva/app_send_mail/tree/master/PHPMailer-master
 
-elseif ( !empty( $sendemail ) && !is_email( $email ) ) $msg = "Please enter a valid email address.";
 
-elseif ( !empty( $lname ) ) $msg = "Are you a spammer?";
 
-elseif ( !empty( $sendemail ) && empty( $cname ) ) $msg = "Please enter your name.";
-
-elseif ( !empty( $sendemail ) && !empty( $cname ) && empty( $email ) ) $msg = "Please enter your email address.";
-
-// get the header get_header(); ?>
-
-<div id="wrapper"> <div id="content"> <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?> <h1><?php the_title(); ?></h1> <?php if ( !empty( $msg ) ) { ?> <div class="message"><?php echo $msg?></div> <?php } ?>
-
-<form class="general" action="<?php the_permalink(); ?>" method="post"> <div class="form-row">
-
-<label for="cname">Name</label> <input type="text" name="cname" value="<?php echo esc_attr($cname);?>"/> <small class="red">* Required</small>
-
-</div> <div class="hidden">
-
-<label for="lname">Last Name</label> <input type="text" name="lname" value="<?php echo esc_attr($lname);?>"/> <small class="red">LEAVE THIS FIELD BLANK</small>
-
-</div> <div class="form-row">
-
-<label for="email">Email</label> <input type="text" name="email" value="<?php echo esc_attr($email);?>"/> <small class="red">* Required</small>
-
-</div> <div class="form-row">
-
-$mailbody = "Name: " . $cname . "\n\n"; $mailbody .= "Email: $email\n\n"; $mailbody .= "Phone: $phone\n\n"; $mailbody .= "Message:\n" . $message;
-
-// send email to us wp_mail( $mailto, $mailsubj, $mailbody, $mailhead );
-
-// set message for this page and clear vars $msg = "Your message has been sent.";
-
-$email = ""; $cname = ""; $phone = ""; $message = "";
-
-$mailbody = "Name: " . $cname . "\n\n"; $mailbody .= "Email: $email\n\n"; $mailbody .= "Phone: $phone\n\n"; $mailbody .= "Message:\n" . $message;
-
-// send email to us wp_mail( $mailto, $mailsubj, $mailbody, $mailhead );
-
-// set message for this page and clear vars $msg = "Your message has been sent.";
-
-$email = ""; $cname = ""; $phone = ""; $message = "";
-
-}
-
-elseif ( !empty( $sendemail ) && !is_email( $email ) ) $msg = "Please enter a valid email address.";
-
-elseif ( !empty( $lname ) ) $msg = "Are you a spammer?";
-
-elseif ( !empty( $sendemail ) && empty( $cname ) ) $msg = "Please enter your name.";
-
-elseif ( !empty( $sendemail ) && !empty( $cname ) && empty( $email ) ) $msg = "Please enter your email address.";
-
-// get the header get_header(); ?>
-
-<div id="wrapper"> <div id="content"> <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?> <h1><?php the_title(); ?></h1> <?php if ( !empty( $msg ) ) { ?> <div class="message"><?php echo $msg?></div> <?php } ?>
-
-<form class="general" action="<?php the_permalink(); ?>" method="post"> <div class="form-row">
-
-<label for="cname">Name</label> <input type="text" name="cname" value="<?php echo esc_attr($cname);?>"/> <small class="red">* Required</small>
-
-</div> <div class="hidden">
-
-<label for="lname">Last Name</label> <input type="text" name="lname" value="<?php echo esc_attr($lname);?>"/> <small class="red">LEAVE THIS FIELD BLANK</small>
-
-</div> <div class="form-row">
-
-<label for="email">Email</label> <input type="text" name="email" value="<?php echo esc_attr($email);?>"/> <small class="red">* Required</small>
-
-</div> <div class="form-row">
-
-}
-
-elseif ( !empty( $sendemail ) && !is_email( $email ) ) $msg = "Please enter a valid email address.";
-
-elseif ( !empty( $lname ) ) $msg = "Are you a spammer?";
-
-elseif ( !empty( $sendemail ) && empty( $cname ) ) $msg = "Please enter your name.";
-
-elseif ( !empty( $sendemail ) && !empty( $cname ) && empty( $email ) ) $msg = "Please enter your email address.";
-
-// get the header get_header(); ?>
-
-<div id="wrapper"> <div id="content"> <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?> <h1><?php the_title(); ?></h1> <?php if ( !empty( $msg ) ) { ?> <div class="message"><?php echo $msg?></div> <?php } ?>
-
-<form class="general" action="<?php the_permalink(); ?>" method="post"> <div class="form-row">
-
-<label for="cname">Name</label> <input type="text" name="cname" value="<?php echo esc_attr($cname);?>"/> <small class="red">* Required</small>
-
-</div> <div class="hidden">
-
-<label for="lname">Last Name</label> <input type="text" name="lname" value="<?php echo esc_attr($lname);?>"/> <small class="red">LEAVE THIS FIELD BLANK</small>
-
-</div> <div class="form-row">
-
-<label for="email">Email</label> <input type="text" name="email" value="<?php echo esc_attr($email);?>"/> <small class="red">* Required</small>
-
-</div> <div class="form-row">
-
-<label for="phone">Phone</label> <input type="text" name="phone" value="<?php echo esc_attr($phone);?>"/>
-
-</div> <div class="form-row"> <label for="message">Question or Comment</label>
-
-<textarea class="textarea" id="message" name="message" rows="4" cols="55"> <?php echo esc_textarea( $message )?>
-
-</textarea> </div> <div class="form-row"> <label for="sendemail">&nbsp;</label> <input type="submit" id="sendemail" name="sendemail" value="Submit"/>
-
-</div> </form> <?php endwhile; endif; ?> </div> </div> <?php
-
-// get the footer get_footer();
-```
