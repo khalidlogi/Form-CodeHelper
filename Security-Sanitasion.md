@@ -1,6 +1,6 @@
 
 
-##nonce 
+### nonce 
 ```php
 <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('form-nonce') ?>" />     
 $nonce = $_POST['nonce'];
