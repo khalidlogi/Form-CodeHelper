@@ -1,7 +1,15 @@
 
 
+##nonce 
+```php
+<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('form-nonce') ?>" />     
+$nonce = $_POST['nonce'];
+        if (!wp_verify_nonce($nonce, 'form-nonce')) {
+            wp_die('Security check');
+        }
+```
 
-// use sanitize_email() to try to fix any invalid email 
+### use sanitize_email() to try to fix any invalid email 
 $user_email = sanitize_email ( $user_email ); 
 $valid_email = is_email ( $user_email ); 
 if ( ! $valid_email ) echo 'invalid email<br />' ;
