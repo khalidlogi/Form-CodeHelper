@@ -1,5 +1,6 @@
 # Form-CodeHelper
-?php
+```php
+<?php
 
 $errors = [];
 $data = [];
@@ -25,3 +26,5 @@ if (!empty($errors)) {
 }
 
 echo json_encode($data);
+
+```
