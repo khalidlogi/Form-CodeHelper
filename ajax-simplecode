@@ -1,0 +1,60 @@
+# js code 
+
+
+```php
+jQuery(document).ready(function ($) {
+  $("#my-form").submit(function (e) {
+    e.preventDefault();
+
+    // Collect form data
+    var formData = $(this).serialize();
+
+    // Debug form data
+    console.log(formData);
+
+    // Ajax request
+    $.ajax({
+      type: "POST",
+      url: MyCustomScriptsData.ajax_url,
+      data: {
+        action: "my_user_insert", // Ajax action name
+        form_data: formData,
+        name: $('#user-form input[name="khname"]').val(),
+        email: $('#user-form input[name="khemail"]').val(),
+        phone: $('#user-form input[name="khphone"]').val(),
+        city: $('#user-form input[name="khcity"]').val(),
+        product_name: $('#user-form input[name="product_name"]').val(),
+        nonce: MyCustomScriptsData.nonce,
+      },
+      success: function (response) {
+        // Handle the Ajax response
+        console.log(response);
+      },
+      error: function (errorThrown) {
+        // Handle the error
+        console.log("Error:", errorThrown);
+      },
+    });
+  });
+});
+```
+
+##php code
+```php
+  if (!wp_verify_nonce($_POST['nonce'], 'my_nonce')) {
+            wp_send_json_error('Invalid nonce.');
+            exit;
+        }
+        // Process your AJAX request here
+        $response = array(
+            'message' => 'AJAX request successful!',
+            'data' => $_POST // Example: Send back the received data
+        );
+
+        wp_send_json_success($response);
+
+        die;
+
+
+
+
